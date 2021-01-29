@@ -1,0 +1,23 @@
+{
+"images": ["line2.png"],
+"frames": [
+
+    [0, 0, 300, 1000], 
+    [300, 0, 300, 1000], 
+    [600, 0, 300, 1000], 
+    [900, 0, 300, 1000], 
+    [1200, 0, 300, 1000]
+],
+"animations": {
+    
+        "_0005__0013_发射光线_00013":[0], 
+        "_0006__0012_发射光线_00014":[1], 
+        "_0007__0011_发射光线_00015":[2], 
+        "_0008__0010_发射光线_00016":[3], 
+        "_0009__0009_发射光线_00017":[4]
+},
+"texturepacker": [
+        "SmartUpdateHash: $TexturePacker:SmartUpdate:22f71dead6fa6c3ae2586532d9d37424$",
+        "Created with TexturePacker (http://www.texturepacker.com) for EasalJS"
+]
+}

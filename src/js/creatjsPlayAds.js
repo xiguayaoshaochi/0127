@@ -177,8 +177,13 @@ window.removeStop=function(obj){
     console.log(arguments);
     for (var i = 0; i < e; i++) {
       // console.log(arguments[i]);
-      createjs.Tween.removeTweens(arguments[i]);
-      arguments[i].parent.removeChild(arguments[i]);
+      if (arguments[i]!=null) {
+        console.log(arguments[i])
+        createjs.Tween.removeTweens(arguments[i]);
+        arguments[i].parent.removeChild(arguments[i]);
+      }
+
+      
     }
   } else {
     if (obj.name ="hand2") {
@@ -1603,6 +1608,12 @@ window.drawR=function(x,y,w,h,color,con){
   return r;
 }
 
+// 比如要从a的坐标转换到b的坐标，假如a、b不是同一个container，那么就用此函数去转换坐标
+// obj1是b,obj2是a,返回的是a转换到b所在的container的坐标
+window.changeSite = function(obj1, obj2) {
+  return obj1.parent.localToLocal(obj1.x, obj1.y, obj2.parent);
+}
+
 window.transObj = {
   o: null,
   start: function (obj) {
@@ -1743,7 +1754,18 @@ window.getQueryString = function (name) {
 }
 window.chooseType = getQueryString("chooseType");
 
-window.addRectBitmap_simple = (img_name, find_name, img_, img_json, regx, regy, x_, y_, addArr, boolean) => {
+// img_name 图片的变量名
+// find_name  图片的名字，根据合并之前的名字而来
+// img_ 一张大图的引用
+// img_json大图的json文件
+// regx 中心点X 0-1
+// regy 中心点y 0-1
+// x_ y_  要放置图片的坐标,因为有中心点的存在,所以设置之后的.x .y和这个不同
+// scle_num  缩放
+// boolean  是不是要启用变换中心点，false就是默认左上角  regx regy失效
+
+window.wb = window.bitmaps || {};
+window.addRectBitmap_simple = (img_name, find_name, img_, img_json, regx, regy, x_, y_, scle_num, boolean) => {
   wb[img_name] = new createjs.Bitmap(img_);
   wb[img_name].name = img_name;
   if (typeof x_ != "undefined" && typeof y_ != "undefined") {
@@ -1763,11 +1785,16 @@ window.addRectBitmap_simple = (img_name, find_name, img_, img_json, regx, regy, 
     wb[img_name].y = wb[img_name].y + h_ * regy;
   }
 
-  if (isNumber(addArr)) {
-    wb[img_name].scaleX = wb[img_name].scaleY = addArr;
+  if (isNumber(scle_num)) {
+    wb[img_name].scaleX = wb[img_name].scaleY = scle_num;
   }
   return wb[img_name];
 }
+
+// 调用方法
+// var handname = "hand1";
+// var test1 = addRectBitmap_simple(handname, 'hand', sprite_, json_sprite, 0.1, 0.1, _this.obj.x, _this.obj.y,1, true);
+// 可以用test1 或者 wb.handname去操作图片对象
 
 function isNumber(obj) {
   return typeof obj === 'number' && !isNaN(obj)

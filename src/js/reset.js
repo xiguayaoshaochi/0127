@@ -1,5 +1,5 @@
-// import bg_ from '../images/JPNGmin/bg.jpg';
-
+import Matter from '../../node_modules/matter-js';
+console.log(Matter)
 import {indexcss} from '../css/index.css'
 window.wsp = window.sprite || {};
 window.wb = window.bitmaps ||{};
@@ -45,7 +45,7 @@ window.person = new createjs.Container();
 
 createjs.MotionGuidePlugin.install();
 // stage.enableMouseOver(10);
-window.stage.addChild(container0, container00,person);
+window.stage.addChild(container0, person, container00);
 
 window.stage.alpha = 0;
 containerAll2_cs.alpha = 0;
@@ -61,6 +61,41 @@ let verifyStatus = ()=>{
   }
 }
 
+
+window.Engine = Matter.Engine;
+window.Runner = Matter.Runner;
+window.Events = Matter.Events;
+window.Constraint = Matter.Constraint;
+window.MouseConstraint = Matter.MouseConstraint;
+window.Composites = Matter.Composites;
+window.Composite = Matter.Composite;
+window.Mouse = Matter.Mouse;
+window.World = Matter.World;
+window.Bodies = Matter.Bodies;
+window.Render = Matter.Render;
+window.Body = Matter.Body;
+window.Pair = Matter.Pair;
+window.Grid = Matter.Grid;
+window.Vector = Matter.Vector;
+// create an engine
+window.engine = Engine.create();
+
+// create a renderer
+window.render = Render.create({
+  // element: document.getElementById('canvas_box'),
+  canvas: document.getElementById('canvas_m'),
+  engine: engine,
+  options: {
+    width: document.documentElement.clientWidth,
+    height: document.documentElement.clientHeight,
+    showAngleIndicator: true,
+    showIds: true,
+    wireframes: true,
+    showCollisions: true,
+    showVelocity: true
+  },
+
+});
 
 createjs.setTimeout = function (cb, delay) {
   var tween = createjs.Tween.get({})

@@ -99,7 +99,7 @@
             <key>packageName</key>
             <string>Texture</string>
             <key>javaFileName</key>
-            <filename>../bigimg/sprite.java</filename>
+            <filename>../../../../1223/src/images/bigimg/sprite.java</filename>
             <key>wrap</key>
             <struct type="AndEngineWrap">
                 <key>s</key>
@@ -146,19 +146,26 @@
         </struct>
         <key>fileList</key>
         <array>
+            <filename>banana.png</filename>
+            <filename>bar.png</filename>
+            <filename>bg_img.png</filename>
+            <filename>bottom.png</filename>
+            <filename>choose_s.png</filename>
             <filename>g1.png</filename>
-            <filename>g2.png</filename>
+            <filename>hamburger.png</filename>
             <filename>hand.png</filename>
+            <filename>lemon.png</filename>
+            <filename>sandwich.png</filename>
             <filename>txt1.png</filename>
             <filename>you_win.png</filename>
-            <filename>save_hanyu/top_r.png</filename>
-            <filename>save_hanyu/card_h.png</filename>
-            <filename>save_hanyu/card_r.png</filename>
+            <filename>empty.png</filename>
+            <filename>empty1.png</filename>
             <filename>save_hanyu/end_btn_h.png</filename>
             <filename>save_hanyu/end_btn_r.png</filename>
             <filename>save_hanyu/top_h.png</filename>
-            <filename>fangkuai.png</filename>
-            <filename>bg_bottom.png</filename>
+            <filename>save_hanyu/top_r.png</filename>
+            <filename>save_hanyu/card_r.png</filename>
+            <filename>save_hanyu/card_h.png</filename>
             <filename>txt2.png</filename>
         </array>
         <key>ignoreFileList</key>

@@ -1,5 +1,7 @@
-let musicArr = ["bgm", "yanhua","choose","success",
-   "ranshao",  "openbx", "wolf"
+let musicArr = [
+"bgm",
+"choose",
+"ding"
 ];
 let musicNum = 0;
 musicArr.forEach((item) => {

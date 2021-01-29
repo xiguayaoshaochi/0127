@@ -159,12 +159,17 @@ letter-spacing: 1px;
   top: 0;
 }
 
-#canvas{
+#canvas,
+#canvas_m{
   position: absolute;
   transform-origin: top;
   left: 50%!important;
       transform: translateX(-50%);
       box-shadow: rgb(255, 255, 255) 0px 0px 0px 8px;
+}
+#canvas_m{
+  pointer-events: none;
+  background:none!important;
 }
 #canvas_box{
   background:url(../images/bigimg/big_bg.jpg) center top;
@@ -183,8 +188,9 @@ letter-spacing: 1px;
   right: 10px;
   top: 10px;
   z-index: 100;
-  width: calc(467 / 1920 * 100vw);
-  height: calc(467 / 1920 * 100vw / (467 / 137));
+  width: calc(511 / 1920 * 100vw);
+  height: calc(511 / 1920 * 100vw / (511 / 161));
+  display: none
 }
 
 .shu #btn1,
@@ -196,8 +202,9 @@ letter-spacing: 1px;
   width: calc(343 / 1920 * 100vw);
   height:calc(343 / 1920 * 100vw / (343 / 85));
   position: absolute;
-  right: 40px;
-  bottom: 20px;
+  right: 60px;
+  /* bottom: 20px; */
+      top: 55%;
   background: url(../images/sma_img/save_hanyu/end_btn_h.png) center;
   background-size: cover;
 }
@@ -212,7 +219,7 @@ letter-spacing: 1px;
   left: 5px;
   bottom: 5px;
   font-size: 14px;
-  color: #fff;
+  color: #000;
 }
 
 .box{

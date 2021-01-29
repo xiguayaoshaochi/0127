@@ -1,14 +1,14 @@
 window.json_sprite = require('../images/bigimg/sprite.json');
 import guang_ from '../images/bigimg/guang.png';
-
+window.cjs = createjs;
 
 // SK
 // Japan
-window.language = 'SK';
+window.language = 'Japan';
 
 window.advword = '';
 
-let imgArr = ["sprite", "n1", "n2", "b1", "b2", "a1", "a2","a3"
+let imgArr = ["sprite", "bao", "huan", "line1", "line2", "line3", "line4"
 ];
 let imgNum = 0;
 imgArr.forEach((item) => {
@@ -32,7 +32,8 @@ function loadCompleteimgArr() {
   var resizerq = require("./resize.js");
   console.log('rezise')
   resizerq.resizeContent("canvas");
-
+  var c1 = document.getElementById('canvas');
+  var c2 = document.getElementById('canvas_m');
 
   window.onresize = function () {
     setTimeout(function () {
@@ -47,6 +48,7 @@ function loadCompleteimgArr() {
         // resizerq.hengChange();
         wb.txt2.alpha = 1;
         canvas.style.transform = 'translateX(-50%) scale(' + H/W+ ')';
+        c2.style.transform = 'translateX(-50%) scale(' + H / W + ')';
         myIdElement.classList.remove("shu");
         myIdElement.classList.add('heng');
         wb.end_btn1.alpha=0;
@@ -55,12 +57,28 @@ function loadCompleteimgArr() {
         wb.txt2.alpha = 0;
         window.pageState = "shu";
         canvas.style.transform = 'translateX(-50%) scale(' + 1+ ')';
+        c2.style.transform = 'translateX(-50%) scale(' + 1 + ')';
         myIdElement.classList.remove("heng");
         myIdElement.classList.add('shu');
-        wb.end_btn1.alpha = 1;
+        if (end_pop.alpha==0) {
+          wb.end_btn1.alpha = 1;
+        }
+        
         textadv.alpha = 1;
         // resizerq.verticalChange();
         // resizerq.shuChange();
+      }
+       
+      c2.style.width = c1.style.width;
+      c2.style.height = c1.style.height;
+      c2.style.left = c1.style.left;
+      c2.style.top = c1.style.top;
+      c2.width = c1.width;
+      c2.height = c1.height;
+      render.context.translate(stage.x, stage.y);
+      if (typeof mouseConstraint != 'undefined') {
+        mouseConstraint.mouse.offset.x = -stage.x;
+        mouseConstraint.mouse.offset.y = -stage.y;
       }
       
     }, 200);
@@ -70,54 +88,50 @@ function loadCompleteimgArr() {
 
 
 
-  var particle_all1 = new createjs.SpriteSheet({
+
+  var bao_all = new createjs.SpriteSheet({
     framerate: 15,
-    "images": [n1_, n2_],
+    "images": [bao_],
     "frames": {
       "regX": 0,
-      "height": 500,
-      "count": 50,
+      "height": 120,
+      "count": 30,
       "regY": 0,
-      "width": 250
+      "width": 120
     },
     "animations": {
-      "start": [0, 49, "stop", 1],
-      "start1": [0, 49, "start1", 1],
-      "stop": [49],
+      "start": [29],
+      "boom": [0, 29, "start"],
     },
   });
 
-  var particle_all2 = new createjs.SpriteSheet({
+  var huan_all = new createjs.SpriteSheet({
     framerate: 15,
-    "images": [b1_, b2_],
+    "images": [huan_],
     "frames": {
       "regX": 0,
-      "height": 500,
-      "count": 50,
+      "height": 200,
+      "count": 25,
       "regY": 0,
-      "width": 250
+      "width": 200
     },
     "animations": {
-      "start": [0, 49, "stop", 1],
-      "start1": [0, 49, "start1", 1],
-      "stop": [49],
+      "start": [0,24,"start"],
     },
   });
 
-  var particle_all3 = new createjs.SpriteSheet({
+  var line_all = new createjs.SpriteSheet({
     framerate: 15,
-    "images": [a1_, a2_, a3_],
+    "images": [line1_, line2_, line3_, line4_],
     "frames": {
       "regX": 0,
-      "height": 500,
-      "count": 37,
+      "height": 1000,
+      "count": 19,
       "regY": 0,
-      "width": 500
+      "width": 300
     },
     "animations": {
-      "start": [0, 36, "stop", 1],
-      "start1": [0, 36, "start1", 1],
-      "stop": [36],
+      "start": [0, 18, "start"],
     },
   });
 
@@ -127,46 +141,59 @@ function loadCompleteimgArr() {
 
   //开始前加载
   setTimeout(() => {
-
-    addRectBitmap_simple('bg_bottom', 'bg_bottom', sprite_, json_sprite, 0.5, 0.5, (1390-640)/2, screenBottom - 468, "addArrAll", true);
-
-    
-    
-    // 491
-    addRectBitmap_simple('hand', 'hand', sprite_, json_sprite, 0.9, 0.1, -55, 358, "addArrAll", true);
-    addRectBitmap_simple('hand2', 'hand', sprite_, json_sprite, 0.9, 0.1, -55, 40, "addArrAll", true);
-    addRectBitmap_simple('hand3', 'hand', sprite_, json_sprite, 0.9, 0.1, -55, 497, "addArrAll", true);
-    addRectBitmap_simple('hand4', 'hand', sprite_, json_sprite, 0.9, 0.1, -55, 290, "addArrAll", true);
-    addRectBitmap_simple('hand5', 'hand', sprite_, json_sprite, 0.9, 0.1, -55, 497, "addArrAll", true);
-    addRectBitmap_simple('hand6', 'hand', sprite_, json_sprite, 0.9, 0.1, -55, 290, "addArrAll", true);
-    addRectBitmap_simple('g1', 'g1', sprite_, json_sprite, 1, 1, 15, 40, "addArrAll", true);
-    addRectBitmap_simple('g2', 'g2', sprite_, json_sprite, 1, 1, 15, 40, "addArrAll", true);
-
-    addBitmap('guang', guang_, screenMiddle-640/2, screenMiddle-802/2-35, "addArr6");
-    wb.guang.regX = 640 * 0.5;
-    wb.guang.x = wb.guang.x + 640 * 0.5;
-    wb.guang.regY = 751 * 0.5;
-    wb.guang.y = wb.guang.y + 751 * 0.5;
-    
-    addRectBitmap_simple('you_win', 'you_win', sprite_, json_sprite, 1, 1, screenMiddle-585/2, screenTop+100, "addArrAll", true);
-    // addRectBitmap_simple('card', 'card', sprite_, json_sprite, 0.5, 0.5, screenMiddle - 276 / 2, screenMiddle-365/2-35, "addArrAll", true);
-    addRectBitmap_simple('txt1', 'txt1', sprite_, json_sprite, 0.5, 0.5, screenMiddle - 584 / 2, screenMiddle - 172 / 2 - 35+172+120, "addArrAll", true);
-    addRectBitmap_simple('txt2', 'txt2', sprite_, json_sprite, 0.5, 0.5, screenMiddle - 665 / 2, screenBottom - 120, "addArrAll", true);
-    // addRectBitmap_simple('end_btn', 'end_btn', sprite_, json_sprite, 0.5, 0.5, screenMiddle-431/2, screenBottom-108-100, "addArrAll", true);
-
+        addSpriteSheet("baoani", bao_all, "start1", 600, screenBottom - 230, 1, 0.5, 0.5);
+        addSpriteSheet("huanani", huan_all, "start", screenMiddle, screenBottom - 180, 1, 0.5, 0.5);
+        
+        // addRectBitmap_simple("play_btn2",'play_btn2',sprite_,json_sprite,0.5,0.5,596,1289,"addArrAll",true);
         if (language == 'Japan') {
           advword = '広告のみ';
-          addRectBitmap_simple('top', 'top_r', sprite_, json_sprite, 0.5, 0.5, (1390-640)/2, screenTop, "addArrAll", true);
-          addRectBitmap_simple('end_btn', 'end_btn_r', sprite_, json_sprite, 0.5, 0.5, screenMiddle - 343 / 2, screenBottom - 108 - 60, "addArrAll", true);
-          addRectBitmap_simple('end_btn1', 'end_btn_r', sprite_, json_sprite, 0.5, 0.5, screenMiddle - 343 / 2, screenBottom - 150, "addArrAll", true);
+          addRectBitmap_simple('top', 'top_r', sprite_, json_sprite, 0.5, 0.5, screenLeft, screenTop, "addArrAll", true);
+          addRectBitmap_simple('end_btn', 'end_btn_r', sprite_, json_sprite, 0.5, 0.5, screenMiddle - 431 / 2, screenBottom - 108 - 100, "addArrAll", true);
+          addRectBitmap_simple('end_btn1', 'end_btn_r', sprite_, json_sprite, 0.5, 0.5, screenMiddle - 431 / 2, screenBottom - 128, "addArrAll", true);
           addRectBitmap_simple('card', 'card_r', sprite_, json_sprite, 0.5, 0.5, screenMiddle - 276 / 2, screenMiddle - 365 / 2 - 35, "addArrAll", true);
         } else if (language == 'SK') {
           advword = '광고에만한정하다';
-          addRectBitmap_simple('top', 'top_h', sprite_, json_sprite, 0.5, 0.5, (1390-640)/2, screenTop, "addArrAll", true);
-          addRectBitmap_simple('end_btn', 'end_btn_h', sprite_, json_sprite, 0.5, 0.5, screenMiddle - 343 / 2, screenBottom - 108 - 60, "addArrAll", true);
-          addRectBitmap_simple('end_btn1', 'end_btn_h', sprite_, json_sprite, 0.5, 0.5, screenMiddle - 343 / 2, screenBottom - 150, "addArrAll", true);
+          addRectBitmap_simple('top', 'top_h', sprite_, json_sprite, 0.5, 0.5, screenLeft, screenTop, "addArrAll", true);
+          addRectBitmap_simple('end_btn', 'end_btn_h', sprite_, json_sprite, 0.5, 0.5, screenMiddle - 431 / 2, screenBottom - 108 - 100, "addArrAll", true);
+          addRectBitmap_simple('end_btn1', 'end_btn_h', sprite_, json_sprite, 0.5, 0.5, screenMiddle - 431 / 2, screenBottom - 128, "addArrAll", true);
           addRectBitmap_simple('card', 'card_h', sprite_, json_sprite, 0.5, 0.5, screenMiddle - 276 / 2, screenMiddle - 365 / 2 - 35, "addArrAll", true);
         }
+        // addRectBitmap_simple('top', 'top', sprite_, json_sprite, 0.5, 0.5, (1390-652)/2, screenTop-3, "addArrAll", true);
+        window.textadv = new createjs.Text(advword, "16px source", "#000");
+        var boundsw = textadv.getBounds().width;
+        var boundsh = textadv.getBounds().height;
+        // console.log(bounds)
+        textadv.x = screenLeft + 3;
+        if (language == 'Japan') {
+          textadv.y = screenTop + (-3) + boundsh;
+        } else if (language == 'SK') {
+          textadv.y = screenTop + (-3) + boundsh;
+        }
+
+        textadv.textBaseline = "alphabetic";
+        // addRectBitmap_simple('bottom', 'bottom', sprite_, json_sprite, 0.5, 0.5, (1390 - 652) / 2, screenBottom - 119, "addArrAll", true);
+        // 278
+        // 491
+        addRectBitmap_simple('hand', 'hand', sprite_, json_sprite, 0.1, 0.9, -55, 358, "addArrAll", true);
+        addRectBitmap_simple('hand1', 'hand', sprite_, json_sprite, 0.1, 0.9, -55, 40, "addArrAll", true);
+        addRectBitmap_simple('hand3', 'hand', sprite_, json_sprite, 0.1, 0.9, -55, 497, "addArrAll", true);
+        addRectBitmap_simple('hand4', 'hand', sprite_, json_sprite, 0.1, 0.9, -55, 290, "addArrAll", true);
+        addRectBitmap_simple('g1', 'g1', sprite_, json_sprite, 1, 1, 15, 40, "addArrAll", true);
+        // addRectBitmap_simple('g2', 'g2', sprite_, json_sprite, 1, 1, 15, 40, "addArrAll", true);
+
+        addBitmap('guang', guang_, screenMiddle - 640 / 2, screenMiddle - 802 / 2 - 35, "addArr6");
+        wb.guang.regX = 640 * 0.5;
+        wb.guang.x = wb.guang.x + 640 * 0.5;
+        wb.guang.regY = 751 * 0.5;
+        wb.guang.y = wb.guang.y + 751 * 0.5;
+
+        addRectBitmap_simple('you_win', 'you_win', sprite_, json_sprite, 1, 1, screenMiddle - 585 / 2, screenTop + 100, "addArrAll", true);
+
+        addRectBitmap_simple('txt1', 'txt1', sprite_, json_sprite, 0.5, 0.5, screenMiddle - 470 / 2, screenMiddle - 172 / 2 - 35 + 172 + 120, "addArrAll", true);
+        addRectBitmap_simple('txt2', 'txt2', sprite_, json_sprite, 0.5, 0.5, screenMiddle - 665 / 2, screenBottom - 120, "addArrAll", true);
+
+
+
         // addRectBitmap_simple('top', 'top', sprite_, json_sprite, 0.5, 0.5, (1390-652)/2, screenTop-3, "addArrAll", true);
         window.textadv = new createjs.Text(advword, "16px score", "#fff");
         var boundsw = textadv.getBounds().width;
@@ -184,7 +211,6 @@ function loadCompleteimgArr() {
 
         textadv.textBaseline = "alphabetic";
   }, 350);
-
 
 
 
@@ -218,20 +244,23 @@ function loadCompleteimgArr() {
 
 
      window.end_pop = new createjs.Container();
-    // roadcon_box.addChild(roadcon1, roadcon3, roadcon4, roadcon2, roadcon5);
-    person.addChild(wb.guang, wb.top, text, wb.bg_bottom, wb.txt2);
+
+      person.addChild(container4_2, wb.guang, wb.top, text, wb.end_btn1, wsp.huanani);
+
+      window.arr_zero = [end_pop, wb.hand1, wb.hand, wb.hand3, wb.hand4];
     
     wb.txt2.scaleX = wb.txt2.scaleY = 0.7;
     wb.txt2.alpha=0;
-    window.arr_zero = [  end_pop, wb.hand2, wb.hand, wb.hand3, wb.hand4, wb.hand5, wb.hand6];
 
+    wsp.huanani.scaleX = wsp.huanani.scaleY = 1.3
+   
     // roadcon1.addChild(wb.road1,wb.waterweeds1, wb.waterweeds2, wb.waterweeds3, wb.waterweeds4, wb.waterweeds5, wb.fish_p1, wb.fish_p2, wb.fish_p3, wb.fish_p4);
     // roadcon2.addChild(wb.road2, wb.fish_m2, wb.fish_m3, wb.fish_m4, wb.hand, wb.hand3, wb.hand5);
     // roadcon3.addChild(wb.road3, wb.fish_b1, wb.fish_b2, wb.fish_b3, wb.fish_b4, wb.hand6);
     // roadcon4.addChild(wb.road4, wb.fish_y1, wb.fish_y2, wb.fish_y3, wb.fish_y4, wb.hand2, wb.hand4);
     
     // console.log(wb.hand.x,wb.hand.y)
-    wb.end_btn1.scaleX = wb.end_btn1.scaleY = 0.9;
+    wb.end_btn1.scaleX = wb.end_btn1.scaleY = 0.6;
     stage.addChild(wb.end_btn1)
     // window.arr_zero2 = [wb.qipao1];
 
@@ -361,7 +390,8 @@ function loadCompleteimgArr() {
     //   // resizerq.verticalChange();
     //   // resizerq.shuChange();
     // }
-
+    var c1 = document.getElementById('canvas');
+    var c2 = document.getElementById('canvas_m');
     var W = window.innerWidth;
     var H = window.innerHeight;
     var myIdElement = document.getElementById("canvas_box");
@@ -374,12 +404,15 @@ function loadCompleteimgArr() {
       myIdElement.classList.remove("shu");
       myIdElement.classList.add('heng');
       canvas.style.transform = 'translateX(-50%) scale(' + H / W + ')';
+      c2.style.transform = 'translateX(-50%) scale(' + H / W + ')';
+      
       wb.end_btn1.alpha = 0;
       textadv.alpha = 0;
     } else {
       wb.txt2.alpha = 0;
       window.pageState = "shu";
       canvas.style.transform = 'translateX(-50%) scale(' + 1 + ')';
+      c2.style.transform = 'translateX(-50%) scale(' + 1 + ')';
       myIdElement.classList.remove("heng");
       myIdElement.classList.add('shu');
       wb.end_btn1.alpha = 1;

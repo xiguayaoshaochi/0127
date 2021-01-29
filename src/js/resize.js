@@ -1,5 +1,8 @@
 var vsStatus = require("./reset.js");
 var changeNum = 30;
+
+var c1 = document.getElementById('canvas');
+var c2 = document.getElementById('canvas_m');
 var resize = {
   resizeContent: (cs) => {
     var stageWidtha = document.documentElement.clientWidth;
@@ -122,6 +125,18 @@ var resize = {
       window.screenLeft = (1390 - canvas.width) / 2;
       window.screenRight = (1390 + canvas.width) / 2;
       console.log(screenBottom + "screenBottom")
+
+          c2.style.width = c1.style.width;
+          c2.style.height = c1.style.height;
+          c2.style.left = c1.style.left;
+          c2.style.top = c1.style.top;
+          c2.width = c1.width;
+          c2.height = c1.height;
+          render.context.translate(stage.x, stage.y);
+          if (typeof mouseConstraint != 'undefined') {
+            mouseConstraint.mouse.offset.x = -stage.x;
+            mouseConstraint.mouse.offset.y = -stage.y;
+          }
   }
 }
 
