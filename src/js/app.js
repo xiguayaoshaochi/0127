@@ -490,24 +490,27 @@ setTimeouc(() => {
   loadingBall = function (cb) {
     var baoshiName = 'baoshi_';
     
-    addBitmap(baoshiName, baoshi_, screenRight-50, screenBottom-50, "addArr6");
+    addBitmap(baoshiName, coin_, screenRight-50, screenBottom-50, "addArr6");
 
     var bs = wb[baoshiName];
-    bs.regX = 64 * 0.5;
-    bs.x = screenRight-50;
-    bs.regY = 64 * 0.5;
-    bs.x = screenRight - 100;
-    bs.y = screenBottom - 60;
-    person.addChild(bs);
+    bs.regX = 91 * 0.5;
+    bs.regY = 91 * 0.5;
+    // bs.x = screenRight - 50;
+    // bs.x = screenRight - 100;
+    // bs.y = screenBottom - 60;
+    bs.x = 695;
+    bs.y = screenBottom - 100 - 40 - 50+60;
+    console.log(bs)
     var guidePointX = bs.x - Math.abs(bs.x - boxA.position.x) / 2;
     var guidePointy = bs.y - Math.abs(bs.y - boxA.position.y) / 2 - 150;
-    bs.scaleX = bs.scaleY = 50 / 64;
+    bs.scaleX = bs.scaleY = 50 / 91;
     ccon1.addChild(bs);
     var p = changeSite(cboxB,bs);
     cjs.Tween.get(bs).to({
-      guide: {
-        path: [p.x, p.y, guidePointX, guidePointy, cboxB.x, cboxB.y]
-      },
+      // guide: {
+      //   path: [p.x, p.y, guidePointX, guidePointy, cboxB.x, cboxB.y]
+      // },
+      y: bs.y - 60,
       rotation: ccrotation
     }, 750).call(function () {
       if (cb) {
@@ -519,8 +522,8 @@ setTimeouc(() => {
   // console.log()
 
   joinball = loadingBall(function () {
-    joinball.regY = 32 + 60;
-    joinball.y = joinball.y + 60 * joinball.scaleX;
+    // joinball.regY = 32 + 60;
+    // joinball.y = joinball.y + 60 * joinball.scaleX;
     shootBall();
   });
   var aa = draw.cir(screenMiddle, boomanchory + 120 * 0.8, 2)
@@ -547,7 +550,8 @@ setTimeouc(() => {
       x1 = stage.mouseX;
       y1 = stage.mouseY;
       console.log(x1, y1)
-      ccon1.rotation = joinball.rotation = 90 - testXangle(x1, y1);
+      // ccon1.rotation = joinball.rotation = 90 - testXangle(x1, y1);
+      ccon1.rotation = 90 - testXangle(x1, y1);
       testXangle("stagemousedown", x1, y1)
       line_cc.visible = true;
     })
@@ -555,7 +559,8 @@ setTimeouc(() => {
       x1 = stage.mouseX;
       y1 = stage.mouseY;
       console.log("stagemousemove", x1, y1)
-      ccon1.rotation = joinball.rotation = 90 - testXangle(x1, y1);
+      // ccon1.rotation = joinball.rotation = 90 - testXangle(x1, y1);
+      ccon1.rotation  = 90 - testXangle(x1, y1);
       line_cc.visible = true;
     })
 
@@ -583,12 +588,12 @@ setTimeouc(() => {
       });
       World.add(world, newball);
       newball.title = "shoot";
-      var baoshiName = 'baoshi_' + random1(1, 10000);
-      addBitmap(baoshiName, baoshi_, 0, 0, "addArr6");
+      var baoshiName = 'coin_' + random1(1, 10000);
+      addBitmap(baoshiName, coin_, 0, 0, "addArr6");
       spriteball = wb[baoshiName];
       spriteball.scaleX = spriteball.scaleY = joinball.scaleX;
-      spriteball.regX = 0.5 * 64;
-      spriteball.regY = 0.5 * 64;
+      spriteball.regX = 0.5 * 91;
+      spriteball.regY = 0.5 * 91;
       spriteball.x = newballx;
       spriteball.y = newbally;
       spriteballArr.unshift(spriteball);
@@ -744,8 +749,8 @@ setTimeouc(() => {
         collball.visible = false;
         boxB.render.visible = true;
         joinball = loadingBall(function () {
-          joinball.regY = 32 + 60;
-          joinball.y = joinball.y + 60 * joinball.scaleX;
+          // joinball.regY = 32 + 60;
+          // joinball.y = joinball.y + 60 * joinball.scaleX;
           shootBall();
         });
       }
