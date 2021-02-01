@@ -1594,7 +1594,7 @@ window.sTime1 = function (point, frameNum) {
 window.sTime = function(obj,ani){
   let point = obj.spriteSheet._data[ani].speed;
   let frameNum = obj.spriteSheet._data[ani].frames.length;
-  console.log(point,frameNum);
+  // console.log(point,frameNum);
   return (1000 / 60) * (1 / point) * frameNum;
 }
 

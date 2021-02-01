@@ -2,6 +2,12 @@ import bg_ from "../images/bigimg/bg.jpg"
 addBitmap('bg', bg_, (1390 - 640) / 2, screenBottom-1138, "addArr6");
 container4_2.addChild(wb.bg);
 
+  var coin_ = require('../images/sma_img/blueball.png');
+  var redball_ = require('../images/sma_img/redball.png');
+  var baoshi_ = require('../images/sma_img/baoshi.png');
+  var color_ = require('../images/sma_img/colorball.png');
+  var angry_ = require('../images/sma_img/angry.png');
+
 var btn1 = document.createElement('div');
 btn1.id='btn1';
 document.getElementById("canvas_box").append(btn1);
@@ -191,11 +197,7 @@ setTimeouc(() => {
 
 
 
-  var coin_ = require('../images/sma_img/blueball.png');
-  var redball_ = require('../images/sma_img/redball.png');
-  var baoshi_ = require('../images/sma_img/baoshi.png');
-  var color_ = require('../images/sma_img/colorball.png');
-  var angry_ = require('../images/sma_img/angry.png');
+
   var screenTop = (1390 - canvas.height) / 2;
   var screenMiddle = 1390 / 2;
   var screenBottom = (1390 + canvas.height) / 2;
@@ -238,7 +240,8 @@ setTimeouc(() => {
     // console.log(dx, dy,cxNum,cyNum)
     var coinImg;
     var coinLast;
-    var cirArr = [];
+    window.cirArr = [];
+    var baoArr = [];
     var zhadanIndex = [{
       num: 6
     }, {
@@ -300,19 +303,29 @@ setTimeouc(() => {
         wb[coinName].x = wb[coinName].x - 20 + 91 * 0.5;
         wb[coinName].y = wb[coinName].y - 20 + 91 * 0.5;
         wb[coinName].boss = coinLast;
+
+        var baocl = wsp.disani.clone();
+        baocl.x = wb[coinName].x-10;
+        baocl.y = wb[coinName].y-25;
+        baocl.cacheID = newCirm.id;
+        baocl.scaleX = baocl.scaleY = 0.8;
+        baocl.alpha=0;
+        baoArr.push(baocl);
+        containerbao.addChild(baocl);
         // wb[coinName].visible=false;
-        // if (a == cyNum && b == Math.round(cxNum / 2)) {
-        //   cjs.Tween.get(wb[coinName], {
-        //       loop: true
-        //     }).to({
-        //       scaleX: wb[coinName].scaleX + 0.05,
-        //       scaleY: wb[coinName].scaleY + 0.05
-        //     }, 750)
-        //     .to({
-        //       scaleX: wb[coinName].scaleX,
-        //       scaleY: wb[coinName].scaleY
-        //     }, 750)
-        // }
+        if (a == cyNum && b == Math.round(cxNum / 2)) {
+          // cjs.Tween.get(wb[coinName], {
+          //     loop: true
+          //   }).to({
+          //     scaleX: wb[coinName].scaleX + 0.05,
+          //     scaleY: wb[coinName].scaleY + 0.05
+          //   }, 750)
+          //   .to({
+          //     scaleX: wb[coinName].scaleX,
+          //     scaleY: wb[coinName].scaleY
+          //   }, 750)
+          wb[coinName].boss="last";
+        }
 
         for (let index = 0; index < zhadanIndex.length; index++) {
           const element = zhadanIndex[index];
@@ -403,6 +416,10 @@ setTimeouc(() => {
       container00.children[index].x = element.position.x;
       container00.children[index].y = element.position.y;
       container00.children[index].rotation = 180 * element.angle / Math.PI;
+
+      containerbao.children[index].x = element.position.x;
+      containerbao.children[index].y = element.position.y;
+      containerbao.children[index].rotation = 180 * element.angle / Math.PI;
       // container00.children[index].visible = element.render.visible;
     }
 
@@ -480,6 +497,7 @@ setTimeouc(() => {
   window.cboxA = draw.rect(boomanchorx, boomanchory, 40, 120);
   window.cboxB = draw.cir(screenMiddle, screenBottom - 100 - 40-50, 20);
   window.ccon1 = new createjs.Container();
+  cboxA.alpha = cboxB.alpha=0;
   person.addChild(ccon1);
   ccon1.addChild(cboxA, cboxB);
   var line_cc = new createjs.Shape();
@@ -500,19 +518,22 @@ setTimeouc(() => {
     // bs.y = screenBottom - 60;
     bs.x = 695;
     bs.y = screenBottom - 100 - 40 - 50+60;
-    console.log(bs)
+
     var guidePointX = bs.x - Math.abs(bs.x - boxA.position.x) / 2;
     var guidePointy = bs.y - Math.abs(bs.y - boxA.position.y) / 2 - 150;
     bs.scaleX = bs.scaleY = 50 / 91;
     ccon1.addChild(bs);
     var p = changeSite(cboxB,bs);
+    bs.scaleY = bs.scaleX = 0;
     cjs.Tween.get(bs).to({
-      // guide: {
-      //   path: [p.x, p.y, guidePointX, guidePointy, cboxB.x, cboxB.y]
-      // },
-      y: bs.y - 60,
-      rotation: ccrotation
-    }, 750).call(function () {
+       scaleX: 50 / 91, scaleY: 50 / 91
+      },100).to({
+          // guide: {
+          //   path: [p.x, p.y, guidePointX, guidePointy, cboxB.x, cboxB.y]
+          // },
+          y: bs.y - 60,
+          rotation: ccrotation
+        }, 350, cjs.Ease.quadOut).call(function () {
       if (cb) {
         cb();
       }
@@ -524,10 +545,30 @@ setTimeouc(() => {
   joinball = loadingBall(function () {
     // joinball.regY = 32 + 60;
     // joinball.y = joinball.y + 60 * joinball.scaleX;
+    window.tnt1 = new addTNT();
+    person.addChild(wb.hand);
+    wb.hand.x = screenMiddle-5;
+    wb.hand.y = boomanchory+45;
+    cjs.Tween.get(wb.hand).to({alpha:1},150)
+    .to({
+      guide: {
+        path: [wb.hand.x, wb.hand.y, wb.hand.x-50, wb.hand.y, wb.hand.x - 50, wb.hand.y + 50]
+      }
+    },500).call(()=>{
+      cjs.Tween.get(wb.hand,{loop:true}).to({
+        guide: {
+          path: [wb.hand.x, wb.hand.y, wb.hand.x + 50, wb.hand.y-100, wb.hand.x + 100, wb.hand.y ]
+        }
+      }, 1000).to({
+        guide: {
+          path: [wb.hand.x + 100, wb.hand.y, wb.hand.x + 50, wb.hand.y - 100, wb.hand.x, wb.hand.y]
+        }
+      }, 1000)
+    })
     shootBall();
   });
   var aa = draw.cir(screenMiddle, boomanchory + 120 * 0.8, 2)
-  stage.addChild(aa);
+  // stage.addChild(aa);
 
   function shootBall() {
     var x1 , y1;
@@ -546,7 +587,11 @@ setTimeouc(() => {
       return theta;
     }
     stage.addEventListener("stagemousedown", function (e) {
-      console.log(e)
+      // console.log(e)
+      if (wb.hand.alpha!=0) {
+        createjs.Tween.removeTweens(wb.hand);
+        wb.hand.alpha=0;
+      }
       x1 = stage.mouseX;
       y1 = stage.mouseY;
       console.log(x1, y1)
@@ -558,7 +603,7 @@ setTimeouc(() => {
     stage.addEventListener("stagemousemove", function (e) {
       x1 = stage.mouseX;
       y1 = stage.mouseY;
-      console.log("stagemousemove", x1, y1)
+      // console.log("stagemousemove", x1, y1)
       // ccon1.rotation = joinball.rotation = 90 - testXangle(x1, y1);
       ccon1.rotation  = 90 - testXangle(x1, y1);
       line_cc.visible = true;
@@ -700,7 +745,7 @@ setTimeouc(() => {
         (color.length == 6) ? color : arguments.callee(color);
     })('');
   }
-  window.collball = new createjs.Text("X0", "60px Arial", "#ff7700");
+  window.collball = new createjs.Text("X0", "60px source", "#ff7700");
   collball.x = screenMiddle;
   collball.y = screenMiddle;
   collball.textBaseline = "alphabetic";
@@ -714,21 +759,28 @@ setTimeouc(() => {
   ballTotal.y = screenBottom - 20;
   ballTotal.textBaseline = "alphabetic";
   // ballTotal.textAlign = "center";
-  stage.addChild(ballTotal);
+  // stage.addChild(ballTotal);
 
   window.scoreNum = 0;
   window.score = new createjs.Text("得分:" + scoreNum, "40px Arial", "#ffffff");
   score.x = screenLeft + 5;
   score.y = screenBottom - 20;
   score.textBaseline = "alphabetic";
-  stage.addChild(score);
+  // stage.addChild(score);
 
-  // console.log(baoshiName)
-  addBitmap("baoshitotal", baoshi_, screenRight-50, screenBottom-50, "addArr6");
-  wb.baoshitotal.x = screenRight - 100;
-  wb.baoshitotal.y = screenBottom - 60;
-  stage.addChild(wb.baoshitotal);
-  wb.baoshitotal.scaleX = wb.baoshitotal.scaleY = 50 / 64;
+  // console.log(baoshiName)source
+  addBitmap("baoshitotal", color_, screenRight - 50, screenBottom - 50, "addArr6");
+  wb.baoshitotal.x = screenLeft+10;
+  wb.baoshitotal.y = screenBottom - 55;
+  person.addChild(wb.baoshitotal);
+  wb.baoshitotal.scaleX = wb.baoshitotal.scaleY = 50 / 91;
+
+   window.collnum = 0;
+   window.colltext = new createjs.Text(collnum, "35px score", "#ffffff");
+   colltext.x = screenLeft + 67;
+   colltext.y = screenBottom - 17;
+   colltext.textBaseline = "alphabetic";
+     person.addChild(colltext);
 
   window.collballNum = 0;
   Events.on(engine, 'collisionStart', function (event) {
@@ -751,6 +803,11 @@ setTimeouc(() => {
         joinball = loadingBall(function () {
           // joinball.regY = 32 + 60;
           // joinball.y = joinball.y + 60 * joinball.scaleX;
+          setTimeout(() => {
+            
+            tnt1.random()
+          }, 100);
+          
           shootBall();
         });
       }
@@ -769,15 +826,21 @@ setTimeouc(() => {
 
           if (pair.bodyA.boss == "zhadan") {
             var activecoin = pair.bodyA;
+            // console.log(activecoin, activecoin.circleRadius, cirArr)
             let wherecoin = cirArr.filter((val) => {
-              if ((val.position.x == activecoin.position.x - activecoin.circleRadius * 2 && val.position.y == activecoin.position.y) ||
-                (val.position.x == activecoin.position.x + activecoin.circleRadius * 2 && val.position.y == activecoin.position.y) ||
-                (val.position.x == activecoin.position.x - activecoin.circleRadius && val.position.y == activecoin.position.y - activecoin.circleRadius * 2) ||
-                (val.position.x == activecoin.position.x + activecoin.circleRadius && val.position.y == activecoin.position.y - activecoin.circleRadius * 2)
+              var vx = val.position.x;
+              var vy = val.position.y;
+              var acx = activecoin.position.x;
+              var acy = activecoin.position.y;
+              var acr = activecoin.circleRadius;
+              if (
+                Math.abs(vx - acx) <= acr * 2 && Math.abs(vy - acy) <= acr * 2
               ) {
+                val.boss="mark";
                 return val;
               }
             })
+            // console.log(wherecoin)
             World.remove(engine.world, pair.bodyA);
             cjs.Tween.get(rcoin).to({
               alpha: 0
@@ -793,29 +856,80 @@ setTimeouc(() => {
               rcoinArr.push(rcoin);
             }
 
-            console.log(rcoinArr)
+            // console.log(rcoinArr)
             var newbao = wsp.baoani.clone();
             newbao.x = activecoin.position.x;
             newbao.y = activecoin.position.y;
             stage.addChild(newbao);
             newbao.gotoAndPlay("boom");
+            setTimeout(() => {
+              newbao.alpha=0;
+            }, sTime(newbao,"boom"));
             newbao.scaleX = newbao.scaleY = 1.4;
             setTimeout(() => {
               for (let index = 0; index < rcoinArr.length; index++) {
                 const element = rcoinArr[index];
-                cjs.Tween.get(element).to({
-                  alpha: 0
-                }, 350);
+                if (element.boss && element.boss == "last") {
+                  endani();
+                }
+                // cjs.Tween.get(container00.children.find(item => {
+                //     return item.cacheID == element.cacheID;
+                //   })).to({
+                //   alpha: 0
+                // }, 350);
+                let tt = containerbao.children.find(item => {
+                  return item.cacheID == element.cacheID;
+                })
+                tt.visible = false;
+                // console.log(element)
+                if (element.boss!="down") {
+                  // console.log("dhajhdajk")
+                  cjs.Tween.get(element).to({
+                    alpha: 0
+                  }, 350);
+                }
+                
               }
             }, sTime1(16, "boom"));
             collballNum += 5;
           } else {
             collballNum++;
-            if (pair.bodyA.boss != "last") {
+            if (pair.bodyA.boss != "last" && container00.children.find(item => {
+                return item.cacheID == pair.bodyA.id;
+              }).boss!="mark") {
+
+                
               Body.setStatic(pair.bodyA, false);
+              container00.children.find(item => {
+                return item.cacheID == pair.bodyA.id;
+              }).boss = "down"
+
+              console.log(container00.children.find(item => {
+                return item.cacheID == pair.bodyA.id;
+              }))
               pair.bodyA.collisionFilter.category = 0x0004;
               pair.bodyA.collisionFilter.mask = 0x0004 | 0x0008;
 
+              var ball1 = container00.children.find(item => {
+                return item.cacheID == pair.bodyA.id;
+              })
+              var ani1 = containerbao.children.find(item => {
+                return item.cacheID == pair.bodyA.id;
+              })
+
+              var time = random1(700, 900)
+              cjs.Tween.get(ball1).wait(time).to({
+                scaleX: 0.5,
+                scaleY: 0.5,
+                alpha:0,
+              }, sTime(ani1, "start1") - 100, cjs.Ease.quadOut)
+              cjs.Tween.get(ani1).wait(time).call(() => {
+                ani1.alpha = 1;
+                ani1.gotoAndPlay("start1");
+                setTimeouc(() => {
+                  ani1.alpha=0;
+                }, sTime(ani1,"start1"));
+              })
               // category: 0x0002,
               //   mask: 0x0002 | 0x0001 | 0x0008
               // World.remove(engine.world, pair.bodyA)
@@ -824,6 +938,7 @@ setTimeouc(() => {
                   x: 10 * random1(-1, 1),
                   y: 0
                 });
+
               }, 0);
             }
           }
@@ -831,24 +946,11 @@ setTimeouc(() => {
 
 
 
-
-
-
-          scoreNum += random1(8, 10) + (collballNum - 1) * 10;
-          var moretext = "";
-          if (collballNum >= 2) {
-            moretext = "连击"
-          }
-          collball.text = "X" + collballNum + moretext;
-          collball.visible = true;
-          score.text = "得分:" + scoreNum;
-          if (pair.bodyB.render.visible == false) {
-            collball.text = "游戏胜利";
-            pair.bodyB.render.visible = false;
-          }
-          if (rcoin.boss && rcoin.boss == "last") {
+          function endani(params) {
+             colltext.text = 1;
+             ac1.start(random1(3, 5) * 120);
             console.log("success");
-            collball.text = "游戏胜利";
+            // collball.text = "游戏胜利";
             pair.bodyB.render.visible = false;
             setTimeout(() => {
               gameState = false;
@@ -858,10 +960,31 @@ setTimeouc(() => {
             setTimeout(() => {
               shake1.lock = false;
               shake1.stop();
+              var time = random1(500, 650)
+
+              
+              var lastaniarr = [];
               for (let index = 0; index < cirArr.length; index++) {
                 const element = cirArr[index];
                 if (element.isStatic == true) {
                   Body.setStatic(element, false);
+                  var ball1 = container00.children.find(item => {
+                    return item.cacheID == element.id;
+                  })
+                  var ani1 = containerbao.children.find(item => {
+                    
+                    return item.cacheID == element.id;
+                  })
+
+                  lastaniarr.push(ani1);
+                  
+                  cjs.Tween.get(ball1).wait(time).to({
+                    scaleX: 0.5,
+                    scaleY: 0.5,
+                    alpha:0
+                  }, sTime(ani1, "start1") - 100, cjs.Ease.quadOut)
+
+                  
                   element.collisionFilter.category = 0x0004;
                   element.collisionFilter.mask = 0x0004 | 0x0008;
                   setTimeout(() => {
@@ -872,8 +995,43 @@ setTimeouc(() => {
                   }, 0);
                 }
               }
+
+              setTimeout(() => {
+                lastaniarr.forEach((el) => {
+
+                  el.alpha = 1;
+                  console.log(el.alpha)
+                  el.gotoAndPlay("start1");
+                  setTimeouc(() => {
+                    el.alpha = 0;
+                  }, sTime(el, "start1"));
+
+                })
+              }, 500);
+              
+
+              lastAni(750)
             }, 500);
 
+
+          }
+
+
+          scoreNum += random1(8, 10) + (collballNum - 1) * 10;
+          var moretext = "";
+          if (collballNum >= 2) {
+            // moretext = "连击"
+          }
+          collball.text = "X" + collballNum + moretext;
+          collball.visible = true;
+          ac1.start(random1(3, 5) * collballNum);
+          score.text = "得分:" + scoreNum;
+          if (pair.bodyB.render.visible == false) {
+            // collball.text = "游戏胜利";
+            pair.bodyB.render.visible = false;
+          }
+          if (rcoin.boss && rcoin.boss == "last") {
+            endani();
           }
         }
       }
@@ -883,3 +1041,82 @@ setTimeouc(() => {
 
 
 })
+
+
+function lastAni(time) {
+    
+  setTimeouc(() => {
+    collball.visible = false;
+    cjs.Tween.get(wb.end_btn1).to({
+      alpha: 0
+    }, 350)
+    // cjs.Tween.get(wb.bar).to({
+    //   alpha: 0
+    // }, 350)
+    person.addChild(end_pop);
+    wb.card.alpha = wb.txt1.alpha = wb.end_btn.alpha = 0;
+    cjs.Tween.get(end_pop).to({
+      alpha: 1
+    }, 350)
+    wb.card.alpha = 1;
+    cjs.Tween.get(wb.card).to({
+      scaleY: 1,
+      scaleX: 1
+    }, 500, cjs.Ease.backOut);
+    cjs.Tween.get(wb.guang).to({
+      scaleY: 1,
+      scaleX: 1
+    }, 500, cjs.Ease.backOut);
+    cjs.Tween.get(wb.you_win).wait(10).to({
+      alpha: 1
+    }, 10).to({
+      y: wb.you_win.y + 300
+    }, 500, cjs.Ease.backOut);
+    cjs.Tween.get(wb.end_btn).wait(10).to({
+      alpha: 1
+    }, 10).to({
+      scaleY: 1,
+      scaleX: 1
+    }, 500, cjs.Ease.backOut).call(() => {
+      var btn = new scale_animate(wb.end_btn, 1, 1.1, 1000);
+      wb.end_btn.addEventListener('mousedown', function () {
+        choose.play();
+        mraid.open();
+      })
+    });
+    cjs.Tween.get(wb.txt1).wait(350).to({
+      alpha: 1
+    }, 10).to({
+      scaleY: 1,
+      scaleX: 1
+    }, 500, cjs.Ease.backOut);
+  }, time);
+}
+
+function addTNT() {
+  var _this = this;
+  _this.random = function(){
+    var rm = random1(0, container00.children.length-1);
+    // console.log(rm, container00.children[rm])
+    if (container00.children[rm].alpha != 1 || container00.children[rm].boss=="last") {
+      _this.random();
+    }else{
+      cirArr[rm].boss="zhadan";
+      _this.changeImg(container00.children[rm]);
+      return rm;
+    }
+  }
+  _this.changeImg = function(obj){
+    cjs.Tween.get(obj, {
+        loop: true
+      }).to({
+        scaleX: obj.scaleX + 0.05,
+        scaleY: obj.scaleY + 0.05
+      }, 500)
+      .to({
+        scaleX: obj.scaleX,
+        scaleY: obj.scaleY
+      }, 500)
+    obj.image.src = angry_;
+  }
+}

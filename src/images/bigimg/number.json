@@ -1,0 +1,33 @@
+{
+"images": ["number.png"],
+"frames": [
+
+    [0, 0, 67, 108], 
+    [67, 0, 67, 108], 
+    [134, 0, 67, 108], 
+    [201, 0, 67, 108], 
+    [268, 0, 69, 108], 
+    [337, 0, 67, 108], 
+    [404, 0, 68, 108], 
+    [472, 0, 67, 108], 
+    [539, 0, 67, 108], 
+    [606, 0, 68, 108]
+],
+"animations": {
+    
+        "0":[0], 
+        "1":[1], 
+        "2":[2], 
+        "3":[3], 
+        "4":[4], 
+        "5":[5], 
+        "6":[6], 
+        "7":[7], 
+        "8":[8], 
+        "9":[9]
+},
+"texturepacker": [
+        "SmartUpdateHash: $TexturePacker:SmartUpdate:abbb604940b147408334fc211a2c9d6f$",
+        "Created with TexturePacker (http://www.texturepacker.com) for EasalJS"
+]
+}

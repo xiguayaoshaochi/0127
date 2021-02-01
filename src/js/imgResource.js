@@ -9,6 +9,7 @@ window.language = 'Japan';
 window.advword = '';
 
 let imgArr = ["sprite", "bao", "huan", "line1", "line2", "line3", "line4"
+, "baozha1", "baozha2", "baozha3"
 ];
 let imgNum = 0;
 imgArr.forEach((item) => {
@@ -105,6 +106,22 @@ function loadCompleteimgArr() {
     },
   });
 
+    var dis_all = new createjs.SpriteSheet({
+      framerate: 15,
+      "images": [baozha1_,baozha2_,baozha3_],
+      "frames": {
+        "regX": 0,
+        "height": 102,
+        "count": 28,
+        "regY": 0,
+        "width": 100
+      },
+      "animations": {
+        "start": [0],
+        "start1": [0, 27, "start",0.5],
+      },
+    });
+
   var huan_all = new createjs.SpriteSheet({
     framerate: 15,
     "images": [huan_],
@@ -143,19 +160,20 @@ function loadCompleteimgArr() {
   setTimeout(() => {
         addSpriteSheet("baoani", bao_all, "start1", 600, screenBottom - 230, 1, 0.5, 0.5);
         addSpriteSheet("huanani", huan_all, "start", screenMiddle, screenBottom - 180, 1, 0.5, 0.5);
+        addSpriteSheet("disani", dis_all, "start1", screenMiddle, screenBottom - 180, 1, 0.5, 0.5);
         
         // addRectBitmap_simple("play_btn2",'play_btn2',sprite_,json_sprite,0.5,0.5,596,1289,"addArrAll",true);
         if (language == 'Japan') {
           advword = '広告のみ';
           addRectBitmap_simple('top', 'top_r', sprite_, json_sprite, 0.5, 0.5, screenLeft, screenTop, "addArrAll", true);
-          addRectBitmap_simple('end_btn', 'end_btn_r', sprite_, json_sprite, 0.5, 0.5, screenMiddle - 431 / 2, screenBottom - 108 - 100, "addArrAll", true);
-          addRectBitmap_simple('end_btn1', 'end_btn_r', sprite_, json_sprite, 0.5, 0.5, screenMiddle - 431 / 2, screenBottom - 128, "addArrAll", true);
+          addRectBitmap_simple('end_btn', 'end_btn_r', sprite_, json_sprite, 0.5, 0.5, screenMiddle - 460 / 2, screenBottom - 108 - 100, "addArrAll", true);
+          addRectBitmap_simple('end_btn1', 'end_btn_r', sprite_, json_sprite, 0.5, 0.5, screenMiddle - 460 / 2, screenBottom - 128, "addArrAll", true);
           addRectBitmap_simple('card', 'card_r', sprite_, json_sprite, 0.5, 0.5, screenMiddle - 276 / 2, screenMiddle - 365 / 2 - 35, "addArrAll", true);
         } else if (language == 'SK') {
           advword = '광고에만한정하다';
           addRectBitmap_simple('top', 'top_h', sprite_, json_sprite, 0.5, 0.5, screenLeft, screenTop, "addArrAll", true);
-          addRectBitmap_simple('end_btn', 'end_btn_h', sprite_, json_sprite, 0.5, 0.5, screenMiddle - 431 / 2, screenBottom - 108 - 100, "addArrAll", true);
-          addRectBitmap_simple('end_btn1', 'end_btn_h', sprite_, json_sprite, 0.5, 0.5, screenMiddle - 431 / 2, screenBottom - 128, "addArrAll", true);
+          addRectBitmap_simple('end_btn', 'end_btn_h', sprite_, json_sprite, 0.5, 0.5, screenMiddle - 460 / 2, screenBottom - 108 - 100, "addArrAll", true);
+          addRectBitmap_simple('end_btn1', 'end_btn_h', sprite_, json_sprite, 0.5, 0.5, screenMiddle - 460 / 2, screenBottom - 128, "addArrAll", true);
           addRectBitmap_simple('card', 'card_h', sprite_, json_sprite, 0.5, 0.5, screenMiddle - 276 / 2, screenMiddle - 365 / 2 - 35, "addArrAll", true);
         }
         // addRectBitmap_simple('top', 'top', sprite_, json_sprite, 0.5, 0.5, (1390-652)/2, screenTop-3, "addArrAll", true);
@@ -222,9 +240,9 @@ function loadCompleteimgArr() {
      txtaddnuml=10;
      textstart = "1439";
    }
-   window.text = new createjs.Text(textstart, "55px score", "#fff");
+   window.text = new createjs.Text(textstart, "55px score", "#000");
    text.x = screenMiddle - 100 + txtaddnuml+20;
-   text.y = screenTop + 135 + textaddnumt+8;
+   text.y = screenTop + 135 + textaddnumt;
    text.textBaseline = "alphabetic";
  
   
@@ -245,8 +263,7 @@ function loadCompleteimgArr() {
 
      window.end_pop = new createjs.Container();
 
-      person.addChild(container4_2, wb.guang, wb.top, text, wb.end_btn1, wsp.huanani);
-
+      person.addChild( wb.guang, wb.top, text, wb.end_btn1, wsp.huanani);
       window.arr_zero = [end_pop, wb.hand1, wb.hand, wb.hand3, wb.hand4];
     
     wb.txt2.scaleX = wb.txt2.scaleY = 0.7;

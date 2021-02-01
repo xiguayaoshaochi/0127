@@ -27,6 +27,7 @@ window.tip_a4 = null;
 window.canvas = document.getElementById("canvas");
 window.container0 = new createjs.Container();
 window.container00 = new createjs.Container();
+window.containerbao = new createjs.Container();
 window.container1 = new createjs.Container();
 window.container2 = new createjs.Container();
 window.container3 = new createjs.Container();
@@ -45,7 +46,7 @@ window.person = new createjs.Container();
 
 createjs.MotionGuidePlugin.install();
 // stage.enableMouseOver(10);
-window.stage.addChild(container0, person, container00);
+window.stage.addChild(container4_2,container0, container00, containerbao, person);
 
 window.stage.alpha = 0;
 containerAll2_cs.alpha = 0;
