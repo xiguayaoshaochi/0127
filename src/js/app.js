@@ -836,7 +836,8 @@ setTimeouc(() => {
               if (
                 Math.abs(vx - acx) <= acr * 2 && Math.abs(vy - acy) <= acr * 2
               ) {
-                val.boss="mark";
+                
+                Body.setStatic(val, true);
                 return val;
               }
             })
@@ -853,6 +854,8 @@ setTimeouc(() => {
               let rcoin = container00.children.find(item => {
                 return item.cacheID == element.id;
               })
+              rcoin.pz = "mark";
+              createjs.Tween.removeTweens(rcoin);
               rcoinArr.push(rcoin);
             }
 
@@ -882,7 +885,7 @@ setTimeouc(() => {
                 })
                 tt.visible = false;
                 // console.log(element)
-                if (element.boss!="down") {
+                if (element.pz!="down") {
                   // console.log("dhajhdajk")
                   cjs.Tween.get(element).to({
                     alpha: 0
@@ -896,13 +899,13 @@ setTimeouc(() => {
             collballNum++;
             if (pair.bodyA.boss != "last" && container00.children.find(item => {
                 return item.cacheID == pair.bodyA.id;
-              }).boss!="mark") {
+              }).pz!="mark") {
 
                 
               Body.setStatic(pair.bodyA, false);
               container00.children.find(item => {
                 return item.cacheID == pair.bodyA.id;
-              }).boss = "down"
+              }).pz = "down"
 
               console.log(container00.children.find(item => {
                 return item.cacheID == pair.bodyA.id;
@@ -931,7 +934,7 @@ setTimeouc(() => {
                 }, sTime(ani1,"start1"));
               })
               // category: 0x0002,
-              //   mask: 0x0002 | 0x0001 | 0x0008
+              //   mask: 0x0002 | 0x0001 | 0x0008,
               // World.remove(engine.world, pair.bodyA)
               setTimeout(() => {
                 Body.applyForce(pair.bodyA, pair.bodyA.position, {
