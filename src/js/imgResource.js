@@ -161,6 +161,7 @@ function loadCompleteimgArr() {
         addSpriteSheet("baoani", bao_all, "start1", 600, screenBottom - 230, 1, 0.5, 0.5);
         addSpriteSheet("huanani", huan_all, "start", screenMiddle, screenBottom - 180, 1, 0.5, 0.5);
         addSpriteSheet("disani", dis_all, "start1", screenMiddle, screenBottom - 180, 1, 0.5, 0.5);
+        addSpriteSheet("lineani", line_all, "start1", screenMiddle, screenBottom - 180, 1, 0.5, 0.5);
         
         // addRectBitmap_simple("play_btn2",'play_btn2',sprite_,json_sprite,0.5,0.5,596,1289,"addArrAll",true);
         if (language == 'Japan') {

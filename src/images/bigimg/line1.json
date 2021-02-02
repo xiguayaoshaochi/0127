@@ -10,14 +10,14 @@
 ],
 "animations": {
     
-        "_0000__0018_发射光线_00008":[0], 
-        "_0001__0017_发射光线_00009":[1], 
-        "_0002__0016_发射光线_00010":[2], 
-        "_0003__0015_发射光线_00011":[3], 
-        "_0004__0014_发射光线_00012":[4]
+        "发射光线_00008":[0], 
+        "发射光线_00009":[1], 
+        "发射光线_00010":[2], 
+        "发射光线_00011":[3], 
+        "发射光线_00012":[4]
 },
 "texturepacker": [
-        "SmartUpdateHash: $TexturePacker:SmartUpdate:f786f7af4e55dc1190a9aea811a51758$",
+        "SmartUpdateHash: $TexturePacker:SmartUpdate:9913b918594dfae439806389cb9068f6$",
         "Created with TexturePacker (http://www.texturepacker.com) for EasalJS"
 ]
 }

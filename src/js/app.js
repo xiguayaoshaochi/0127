@@ -1,9 +1,14 @@
 import bg_ from "../images/bigimg/bg.jpg"
+import Matter from '../../node_modules/matter-js';
 addBitmap('bg', bg_, (1390 - 640) / 2, screenBottom-1138, "addArr6");
 container4_2.addChild(wb.bg);
 
   var coin_ = require('../images/sma_img/blueball.png');
+  var blueball_ = require('../images/sma_img/blueball.png');
   var redball_ = require('../images/sma_img/redball.png');
+  var chengball_ = require('../images/sma_img/chengball.png');
+  var greenball_ = require('../images/sma_img/greenball.png');
+  var purpleball_ = require('../images/sma_img/purpleball.png');
   var baoshi_ = require('../images/sma_img/baoshi.png');
   var color_ = require('../images/sma_img/colorball.png');
   var angry_ = require('../images/sma_img/angry.png');
@@ -15,6 +20,9 @@ btn1.classList.add('scale_dia');
 if (language == 'Japan'){
   btn1.classList.add("ri");
 }
+
+window.colorArr=["blue","red","green","purple"];
+
 
 function handTips(obj) {
   var _this = this;
@@ -253,22 +261,34 @@ setTimeouc(() => {
       for (let b = 0; b <= cxNum; b++) {
         coinImg = coin_;
         coinLast = "";
-        if ((a == 0 && (b == 0 || b == cxNum)) || (b == 0 || b == cxNum) && random1(0, 1) == 0) {
-          // continue;
-        } else if (a == cyNum && b == Math.round(cxNum / 2)) {
-          // console.log(b);
-          coinLast = "last";
-          coinImg = color_;
+        if(b==0||b==1||b==2){
+          coinLast = "red";
+          coinImg = redball_;
+        } else if (b == cxNum || b == cxNum - 1 || b == cxNum-2) {
+          coinLast = "green";
+          coinImg = greenball_;
+        } else if (a == cyNum || a == cyNum-1 || a == cyNum-2){
+          coinLast = "blue";
+          coinImg = blueball_;
+        }else{
+          coinLast = "purple";
+          coinImg = purpleball_;
         }
 
-        for (let index = 0; index < zhadanIndex.length; index++) {
-          const element = zhadanIndex[index];
-          // console.log(Math.floor(element.num / cxNum) , element.num % cxNum)
-          if (Math.floor(element.num / cxNum) == a && element.num % cxNum == b) {
-            coinLast = "zhadan";
-            coinImg = angry_;
-          }
-        }
+        // else if (a == cyNum && b == Math.round(cxNum / 2)) {
+        //   // console.log(b);
+        //   coinLast = "last";
+        //   coinImg = color_;
+        // }
+
+        // for (let index = 0; index < zhadanIndex.length; index++) {
+        //   const element = zhadanIndex[index];
+        //   // console.log(Math.floor(element.num / cxNum) , element.num % cxNum)
+        //   if (Math.floor(element.num / cxNum) == a && element.num % cxNum == b) {
+        //     coinLast = "zhadan";
+        //     coinImg = angry_;
+        //   }
+        // }
         var x, y;
         x = pointA[0].x + b * cir_radius * 2;
         y = pointA[0].y - a * cir_radius * 2;
@@ -313,48 +333,48 @@ setTimeouc(() => {
         baoArr.push(baocl);
         containerbao.addChild(baocl);
         // wb[coinName].visible=false;
-        if (a == cyNum && b == Math.round(cxNum / 2)) {
-          // cjs.Tween.get(wb[coinName], {
-          //     loop: true
-          //   }).to({
-          //     scaleX: wb[coinName].scaleX + 0.05,
-          //     scaleY: wb[coinName].scaleY + 0.05
-          //   }, 750)
-          //   .to({
-          //     scaleX: wb[coinName].scaleX,
-          //     scaleY: wb[coinName].scaleY
-          //   }, 750)
-          wb[coinName].boss="last";
-        }
+        // if (a == cyNum && b == Math.round(cxNum / 2)) {
+        //   // cjs.Tween.get(wb[coinName], {
+        //   //     loop: true
+        //   //   }).to({
+        //   //     scaleX: wb[coinName].scaleX + 0.05,
+        //   //     scaleY: wb[coinName].scaleY + 0.05
+        //   //   }, 750)
+        //   //   .to({
+        //   //     scaleX: wb[coinName].scaleX,
+        //   //     scaleY: wb[coinName].scaleY
+        //   //   }, 750)
+        //   wb[coinName].boss="last";
+        // }
 
-        for (let index = 0; index < zhadanIndex.length; index++) {
-          const element = zhadanIndex[index];
-          if (Math.floor(element.num / cxNum) == a && element.num % cxNum == b) {
-            cjs.Tween.get(wb[coinName], {
-                loop: true
-              }).to({
-                scaleX: wb[coinName].scaleX + 0.05,
-                scaleY: wb[coinName].scaleY + 0.05
-              }, 500)
-              .to({
-                scaleX: wb[coinName].scaleX,
-                scaleY: wb[coinName].scaleY
-              }, 500)
-          }
+        // for (let index = 0; index < zhadanIndex.length; index++) {
+        //   const element = zhadanIndex[index];
+        //   if (Math.floor(element.num / cxNum) == a && element.num % cxNum == b) {
+        //     cjs.Tween.get(wb[coinName], {
+        //         loop: true
+        //       }).to({
+        //         scaleX: wb[coinName].scaleX + 0.05,
+        //         scaleY: wb[coinName].scaleY + 0.05
+        //       }, 500)
+        //       .to({
+        //         scaleX: wb[coinName].scaleX,
+        //         scaleY: wb[coinName].scaleY
+        //       }, 500)
+        //   }
 
-        }
+        // }
       }
 
     }
     return cirArr;
   }
-  container0.x = 25;
+  container0.x = 30;
   var pointA = [{
-    x: screenLeft + 80,
+    x: screenLeft+10,
     y: screenTop + (screenMiddle - screenTop) * 0.8
   }];
   var pointB = [{
-    x: screenRight - 120,
+    x: screenRight-50,
     y: screenTop + 185
   }];
   var cir_radius = 25;
@@ -402,6 +422,7 @@ setTimeouc(() => {
 
 
   Events.on(engine, 'afterUpdate', function () {
+    newline.visible= line_cc.visible;
     if (gameState) {
       for (let index = 0; index < spriteballArr.length; index++) {
         spriteballArr[index].x = newballArr[index].position.x;
@@ -486,31 +507,99 @@ setTimeouc(() => {
 
   window.boomanchorx = screenMiddle - 20;
   window.boomanchory = screenBottom - 100 - 50 - 50 * 0.8;
-  window.boxA = Bodies.rectangle(screenMiddle, screenBottom - 100, 20 * 2, 150, {
+
+  window.boxA = Bodies.rectangle(screenMiddle, screenBottom - 100, 5 * 2, 1150, {
     frictionAir: 1,
     chamfer: 5
   });
-  window.boxB = Bodies.circle(screenMiddle, screenBottom - 100, 20, {
+  window.boxB = Bodies.circle(screenMiddle, screenBottom - 100, 5, {
     restitution: 0.6,
     frictionAir: 1
   });
+    window.cup = Body.create({
+      parts: [boxA, boxB],
+      frictionAir: 1,
+      collisionFilter: {
+        category: 0x0001,
+          mask: 0x0001 | 0x0008
+      },
+      name: "cup"
+    });
+    window.con1 = Constraint.create({
+      bodyA: cup,
+      pointA: {
+        x: 0,
+        y: 75 * 0.5
+      },
+      pointB: {
+        x: screenMiddle,
+        y: screenBottom - 100-50
+      },
+      stiffness: 1,
+      length: 0,
+
+    })
+    // add mouse control
+    
+    // World.add(world, [cup,con1]);
+Body.setStatic(cup, true);
+    window.boxC = Bodies.rectangle(screenMiddle, screenBottom - 250, 10, 1150, {
+      frictionAir: 1,
+      // chamfer: 5,
+      collisionFilter: {
+        category: 0x0001,
+        mask: 0x0001 | 0x0008
+      },
+      // isStatic: true,
+    });
+
+    // World.add(world, boxC);
+
+
   window.cboxA = draw.rect(boomanchorx, boomanchory, 40, 120);
   window.cboxB = draw.cir(screenMiddle, screenBottom - 100 - 40-50, 20);
   window.ccon1 = new createjs.Container();
   cboxA.alpha = cboxB.alpha=0;
-  person.addChild(ccon1);
+  person.addChild(ccon1,wb.top,text);
   ccon1.addChild(cboxA, cboxB);
   var line_cc = new createjs.Shape();
   line_cc.graphics.setStrokeDash([10, 10], 0).setStrokeStyle(3)
   .beginStroke('ffffff').mt(screenMiddle, screenBottom - 100 - 40 - 50).lt(screenMiddle, screenBottom - 100 - 40 - 50 - (canvas.height))
-  ccon1.addChild(line_cc);
+  var newline = wsp.lineani.clone();
+  newline.x = 700;
+  newline.y = screenBottom - 100 - 40 - 50 + 60-500;
+  newline.visible = false;
+  ccon1.addChild(line_cc, newline);
   line_cc.visible = false;
+  line_cc.alpha=0;
   loadingBall = function (cb) {
-    var baoshiName = 'baoshi_';
-    
-    addBitmap(baoshiName, coin_, screenRight-50, screenBottom-50, "addArr6");
+    function randomcrm(){
+      var crm = random1(0, colorArr.length - 1);
+      if (colorArr.length>2&&crm==0) {
+        console.log("zailaiyici")
+        return randomcrm();
+      }else{
+        return crm;
+      }
+    }
 
-    var bs = wb[baoshiName];
+    var name = colorArr[randomcrm()];
+    var sp;
+    if (name=="red") {
+      sp=redball_;
+    } else if (name == "green") {
+      sp = greenball_;
+    } else if (name == "purple") {
+      sp = purpleball_;
+    } else if (name == "blue") {
+      sp = blueball_;
+    }
+
+    var name = 'baoshi_';
+    addBitmap(name, sp, screenRight - 50, screenBottom - 50, "addArr6");
+
+    var bs = wb[name];
+    bs.boss = name;
     bs.regX = 91 * 0.5;
     bs.regY = 91 * 0.5;
     // bs.x = screenRight - 50;
@@ -545,7 +634,7 @@ setTimeouc(() => {
   joinball = loadingBall(function () {
     // joinball.regY = 32 + 60;
     // joinball.y = joinball.y + 60 * joinball.scaleX;
-    window.tnt1 = new addTNT();
+    // window.tnt1 = new addTNT();
     person.addChild(wb.hand);
     wb.hand.x = screenMiddle-5;
     wb.hand.y = boomanchory+45;
@@ -588,6 +677,7 @@ setTimeouc(() => {
     }
     stage.addEventListener("stagemousedown", function (e) {
       // console.log(e)
+      Body.setStatic(cup, false);
       if (wb.hand.alpha!=0) {
         createjs.Tween.removeTweens(wb.hand);
         wb.hand.alpha=0;
@@ -601,15 +691,19 @@ setTimeouc(() => {
       line_cc.visible = true;
     })
     stage.addEventListener("stagemousemove", function (e) {
+      console.log(Matter.Query.ray([cirArr[0], cirArr[1], cirArr[2], cirArr[3], cirArr[4], cirArr[5], cirArr[6]], (screenMiddle, screenBottom - 250), (screenMiddle, screenBottom - 250 - 1000), 50))
       x1 = stage.mouseX;
       y1 = stage.mouseY;
       // console.log("stagemousemove", x1, y1)
       // ccon1.rotation = joinball.rotation = 90 - testXangle(x1, y1);
       ccon1.rotation  = 90 - testXangle(x1, y1);
+      var bcr = cup.angle;
+      Body.rotate(cup, achangeAngle(ccon1.rotation)-bcr);
       line_cc.visible = true;
     })
 
     stage.addEventListener("stagemouseup", function (e) {
+      Body.setStatic(cup, true);
       x1 = stage.mouseX;
       y1 = stage.mouseY;
       ballTotalNum--;
@@ -685,32 +779,7 @@ setTimeouc(() => {
   ccon1.y = 120 * 0.5 + boomanchory-50;
 
 
-  window.cup = Body.create({
-    parts: [boxA, boxB],
-    frictionAir: 1,
-    collisionFilter: {
-      category: 0x0004,
-      mask: 0x0004 | 0x0008
-    },
-    name: "cup"
-  });
-  window.con1 = Constraint.create({
-    bodyA: cup,
-    pointA: {
-      x: 0,
-      y: 50 * 0.8
-    },
-    pointB: {
-      x: screenMiddle,
-      y: screenBottom - 100
-    },
-    stiffness: 1,
-    length: 0,
 
-  })
-  // add mouse control
-
-  // World.add(world, [cup, con1]);
 
   //重力
   engine.world.gravity.y = 0.98;
@@ -793,7 +862,7 @@ setTimeouc(() => {
       }
 
       // console.log(pair.bodyB.id, ground.id, pair.bodyA.id, ballId)
-      if (pair.bodyA.id == ground.id && pair.bodyB.id == ballId) {
+      if (typeof ballId != "undefined" && pair.bodyA.id == ground.id && pair.bodyB.id == ballId) {
         World.remove(engine.world, newballArr.pop());
         stage.removeChild(spriteballArr.pop());
         cup.collisionFilter.mask = 0x0004 | 0x0008;
@@ -805,7 +874,7 @@ setTimeouc(() => {
           // joinball.y = joinball.y + 60 * joinball.scaleX;
           setTimeout(() => {
             
-            tnt1.random()
+            // tnt1.random()
           }, 100);
           
           shootBall();
@@ -836,8 +905,7 @@ setTimeouc(() => {
               if (
                 Math.abs(vx - acx) <= acr * 2 && Math.abs(vy - acy) <= acr * 2
               ) {
-                
-                Body.setStatic(val, true);
+                val.boss="mark";
                 return val;
               }
             })
@@ -854,8 +922,6 @@ setTimeouc(() => {
               let rcoin = container00.children.find(item => {
                 return item.cacheID == element.id;
               })
-              rcoin.pz = "mark";
-              createjs.Tween.removeTweens(rcoin);
               rcoinArr.push(rcoin);
             }
 
@@ -885,7 +951,7 @@ setTimeouc(() => {
                 })
                 tt.visible = false;
                 // console.log(element)
-                if (element.pz!="down") {
+                if (element.boss!="down") {
                   // console.log("dhajhdajk")
                   cjs.Tween.get(element).to({
                     alpha: 0
@@ -899,13 +965,13 @@ setTimeouc(() => {
             collballNum++;
             if (pair.bodyA.boss != "last" && container00.children.find(item => {
                 return item.cacheID == pair.bodyA.id;
-              }).pz!="mark") {
+              }).boss!="mark") {
 
                 
-              Body.setStatic(pair.bodyA, false);
+              // Body.setStatic(pair.bodyA, false);
               container00.children.find(item => {
                 return item.cacheID == pair.bodyA.id;
-              }).pz = "down"
+              }).boss = "down"
 
               console.log(container00.children.find(item => {
                 return item.cacheID == pair.bodyA.id;
@@ -920,7 +986,7 @@ setTimeouc(() => {
                 return item.cacheID == pair.bodyA.id;
               })
 
-              var time = random1(700, 900)
+              var time = 1;
               cjs.Tween.get(ball1).wait(time).to({
                 scaleX: 0.5,
                 scaleY: 0.5,
@@ -934,7 +1000,7 @@ setTimeouc(() => {
                 }, sTime(ani1,"start1"));
               })
               // category: 0x0002,
-              //   mask: 0x0002 | 0x0001 | 0x0008,
+              //   mask: 0x0002 | 0x0001 | 0x0008
               // World.remove(engine.world, pair.bodyA)
               setTimeout(() => {
                 Body.applyForce(pair.bodyA, pair.bodyA.position, {
@@ -956,6 +1022,7 @@ setTimeouc(() => {
             // collball.text = "游戏胜利";
             pair.bodyB.render.visible = false;
             setTimeout(() => {
+              
               gameState = false;
             }, 1000);
             World.remove(engine.world, pair.bodyB);
@@ -963,19 +1030,20 @@ setTimeouc(() => {
             setTimeout(() => {
               shake1.lock = false;
               shake1.stop();
-              var time = random1(500, 650)
+              var time = 1
 
               
               var lastaniarr = [];
               for (let index = 0; index < cirArr.length; index++) {
                 const element = cirArr[index];
                 if (element.isStatic == true) {
-                  Body.setStatic(element, false);
+                  // Body.setStatic(element, false);
                   var ball1 = container00.children.find(item => {
                     return item.cacheID == element.id;
                   })
+                  
+                  
                   var ani1 = containerbao.children.find(item => {
-                    
                     return item.cacheID == element.id;
                   })
 
